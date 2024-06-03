@@ -202,13 +202,13 @@ focus_start() {
   local dnd_time="${1:-30}"
   time_left="$((pomodoro_duration - elapsed_time))"
 
-  echo "test"
   echo "dnd_time: ${dnd_time}"
   echo "time_left: ${time_left}"
   # echo "${dnd_time::-1}"
 
   sleep 1
   dnd on
+  slck focus
   # slck focus "$dnd_time"
   # slck focus "${dnd_time::-1}"
 }
@@ -216,7 +216,7 @@ focus_start() {
 focus_stop() {
   dnd off
   sleep 1
-  # slck back
+  slck back
 }
 
 pomodoro_toggle() {
@@ -305,7 +305,7 @@ pomodoro_start() {
   fi
 
   refresh_statusline
-  send_notification "🍅 Pomodoro ${verb}ed!" "Your Pomodoro is doing a thing"
+  send_notification "🍅 Pomodoro ${verb}ed!" "Your Pomodoro is underway"
   # echo "$pomodoro_duration"
   # echo "$(format_seconds "$pomodoro_duration")"
 
