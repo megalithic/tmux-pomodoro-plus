@@ -197,6 +197,18 @@ is_paused() {
   return 1
 }
 
+focus_on() {
+  # time in minutes
+  local dnd_time="${1:-30}"
+  echo "$dnd_time"
+  dnd on && slck focus "$dnd_time"
+
+}
+
+focus_off() {
+  dnd off && slck back
+}
+
 pomodoro_toggle() {
   if [ "$(read_status)" == "waiting_for_break" ]; then
     pomodoro_status="break"
@@ -241,6 +253,8 @@ pomodoro_resume() {
   remove_file "$FROZEN_DISPLAY_FILE"
   send_notification "🍅 Pomodoro resuming!" "Your Pomodoro has resumed"
   sleep 2
+  echo "$(format_seconds "$time_left")"
+
   focus_on "$(format_seconds "$time_left")"
 }
 
@@ -269,16 +283,6 @@ increment_interval() {
       write_to_file "1" "$INTERVAL_FILE"
     fi
   fi
-}
-
-focus_on() {
-  local dnd_time="${1:-30}"
-  dnd on && slck focus "$dnd_time"
-
-}
-
-focus_off() {
-  dnd off && slck back
 }
 
 pomodoro_start() {
