@@ -197,11 +197,12 @@ is_paused() {
   return 1
 }
 
-focus_on() {
+focus_start() {
   # time in minutes
   local dnd_time="${1:-30}"
   time_left="$((pomodoro_duration - elapsed_time))"
 
+  echo "test"
   echo "dnd_time: ${dnd_time}"
   echo "time_left: ${time_left}"
   # echo "${dnd_time::-1}"
@@ -212,7 +213,7 @@ focus_on() {
   # slck focus "${dnd_time::-1}"
 }
 
-focus_off() {
+focus_stop() {
   dnd off
   sleep 1
   # slck back
@@ -248,7 +249,7 @@ pomodoro_toggle() {
 
 pomodoro_pause() {
   write_to_file "$(get_seconds)" "$PAUSED_FILE"
-  focus_off
+  focus_stop
   send_notification "🍅 Pomodoro paused!" "Your Pomodoro has been paused"
 }
 
@@ -260,7 +261,7 @@ pomodoro_resume() {
   remove_file "$PAUSED_FILE"
   remove_file "$FROZEN_DISPLAY_FILE"
   send_notification "🍅 Pomodoro resuming!" "Your Pomodoro has resumed"
-  focus_on "$time_left"
+  focus_start "$time_left"
 }
 
 time_paused_for() {
@@ -304,11 +305,11 @@ pomodoro_start() {
   fi
 
   refresh_statusline
-  send_notification "🍅 Pomodoro ${verb}ed!" "Your Pomodoro is underway"
+  send_notification "🍅 Pomodoro ${verb}ed!" "Your Pomodoro is doing a thing"
   # echo "$pomodoro_duration"
   # echo "$(format_seconds "$pomodoro_duration")"
 
-  focus_on "$pomodoro_duration"
+  focus_start "$pomodoro_duration"
   return 0
 }
 
@@ -334,7 +335,7 @@ pomodoro_cancel() {
     send_notification "🍅 Pomodoro cancelled!" "Your Pomodoro has been cancelled"
   fi
 
-  focus_off
+  focus_stop
   refresh_statusline
   return 0
 }
