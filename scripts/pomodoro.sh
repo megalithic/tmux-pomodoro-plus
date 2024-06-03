@@ -199,11 +199,11 @@ is_paused() {
 
 focus_start() {
   # time in minutes
-  local dnd_time="${1:-30}"
-  time_left="$((pomodoro_duration - elapsed_time))"
+  # local dnd_time="${1:-30}"
+  # time_left="$((pomodoro_duration - elapsed_time))"
 
-  echo "dnd_time: ${dnd_time}"
-  echo "time_left: ${time_left}"
+  # echo "dnd_time: ${dnd_time}"
+  # echo "time_left: ${time_left}"
   # echo "${dnd_time::-1}"
 
   sleep 1
@@ -322,6 +322,8 @@ break_start() {
 
   refresh_statusline
   send_notification "🍅 Break started!" "Your break is underway"
+
+  focus_stop
   return 0
 }
 
@@ -355,6 +357,8 @@ pomodoro_skip() {
     refresh_statusline
     return 0
   fi
+
+  focus_stop
 }
 
 pomodoro_custom() {
