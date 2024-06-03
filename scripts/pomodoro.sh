@@ -200,8 +200,7 @@ is_paused() {
 focus_on() {
   # time in minutes
   local dnd_time="${1:-30}"
-  echo "$dnd_time"
-  dnd on && slck focus "$dnd_time"
+  dnd on && slck focus "${dnd_time::-1}"
 
 }
 
@@ -253,7 +252,6 @@ pomodoro_resume() {
   remove_file "$FROZEN_DISPLAY_FILE"
   send_notification "🍅 Pomodoro resuming!" "Your Pomodoro has resumed"
   sleep 2
-  echo "$(format_seconds "$time_left")"
 
   focus_on "$(format_seconds "$time_left")"
 }
