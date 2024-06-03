@@ -200,6 +200,9 @@ is_paused() {
 focus_on() {
   # time in minutes
   local dnd_time="${1:-30}"
+
+  echo "${dnd_time::-1}"
+
   dnd on && slck focus "${dnd_time::-1}"
 
 }
@@ -325,6 +328,7 @@ pomodoro_cancel() {
     send_notification "🍅 Pomodoro cancelled!" "Your Pomodoro has been cancelled"
   fi
 
+  focus_off
   refresh_statusline
   return 0
 }
