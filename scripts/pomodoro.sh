@@ -201,15 +201,20 @@ focus_on() {
   # time in minutes
   local dnd_time="${1:-30}"
 
+  echo ""
   echo "$dnd_time"
   echo "${dnd_time::-1}"
 
-  dnd on && slck focus "${dnd_time::-1}"
-
+  dnd on
+  sleep 2
+  slck focus "$dnd_time"
+  # slck focus "${dnd_time::-1}"
 }
 
 focus_off() {
-  dnd off && slck back
+  dnd off
+  sleep 2
+  slck back
 }
 
 pomodoro_toggle() {
