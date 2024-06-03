@@ -200,9 +200,10 @@ is_paused() {
 focus_on() {
   # time in minutes
   local dnd_time="${1:-30}"
+  time_left="$((pomodoro_duration - elapsed_time))"
 
-  # echo ""
-  echo "$dnd_time"
+  echo "dnd_time: ${dnd_time}"
+  echo "time_left: ${time_left}"
   # echo "${dnd_time::-1}"
 
   sleep 1
